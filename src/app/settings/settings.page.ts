@@ -11,6 +11,9 @@ export class SettingsPage implements OnInit {
 
     ip: string;
     port: string;
+    username: string;
+    userid: string;
+
     status: any;
     requesturl: string;
 
@@ -21,11 +24,15 @@ export class SettingsPage implements OnInit {
     ngOnInit() {
         this.ip = localStorage.getItem('ip');
         this.port = localStorage.getItem('port');
+        this.username = localStorage.getItem('username');
+        this.userid = localStorage.getItem('userid');
     }
 
     public saveSettings() {
         localStorage.setItem('ip', this.ip);
         localStorage.setItem('port', this.port);
+        localStorage.setItem('username', this.username);
+        localStorage.setItem('userid', this.userid);
 
         this.requesturl = 'http://' + this.ip + ':' + this.port + '/stats';
 
@@ -39,7 +46,7 @@ export class SettingsPage implements OnInit {
     async presentConnection(message) {
         const toast = await this.toastController.create({
             message: 'Your Points: ' + message,
-            duration: 2000
+            duration: 1500
         });
         toast.present();
     }
