@@ -11,12 +11,16 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
+    <ion-item *ngFor="let item of asset">
+      <ion-icon name="outlet" slot="start"></ion-icon>
+
+      <div class="item-note">
+        {{item.name}}
       </div>
+      <div class="item-note" slot="end">
+        <ion-toggle [checked]="item.status"></ion-toggle>
+      </div>
+
     </ion-item>
   </ion-list>
   <!--
