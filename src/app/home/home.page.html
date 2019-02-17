@@ -1,22 +1,48 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Home
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <i>nim</i>BUS
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="welcome-card">
-      <ion-card-header>
-        <ion-card-subtitle>Weekly Points</ion-card-subtitle>
-        <ion-card-title>Welcome to BobSaget</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <h1>Deine Punkte: <strong slot="end">3</strong></h1>
-      </ion-card-content>
+    <ion-card>
+        <ion-card-header text-center>
+            <ion-card-title>Willkommen im <i>nim</i>BUS</ion-card-title>
+            <ion-card-subtitle>Schön bist du wieder da, {{username}}</ion-card-subtitle>
+        </ion-card-header>
     </ion-card>
+
+    <ion-card class="welcome-card">
+        <img src="../assets/start.jpg">
+        <ion-card-content>
+            <p>WEEKLY POINTS</p>
+            <h1>Dein <i>nim</i>BUS Stand: <strong slot="end">{{nimbuspoints}}</strong></h1>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content text-center>
+            <h1><ion-icon name="{{nimbusface.face}}" style="height: 3em; width: auto;" [style.color]="nimbusface.color"></ion-icon></h1>
+        </ion-card-content>
+    </ion-card>
+
+    <div style="position: absolute; bottom: 0px; width: 100%">
+        <ion-card *ngIf="error" vertical="bottom" color="danger">
+            <ion-card-content text-center>
+                Can not connect to Homeserver.<br/>Check your settings.
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+    <ion-fab *ngIf="!error" vertical="bottom" horizontal="center" slot="fixed">
+        <ion-fab-button color="light" (click)="refreshHome()">
+            <ion-icon name="sync"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
 </ion-content>

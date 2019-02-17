@@ -4,28 +4,43 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      List
+      Asset Liste
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of asset">
-      <ion-icon name="outlet" slot="start"></ion-icon>
 
-      <div class="item-note">
-        {{item.name}}
-      </div>
-      <div class="item-note" slot="end">
-        <ion-toggle [checked]="item.status"></ion-toggle>
-      </div>
+  <ion-card *ngIf="error" color="danger">
+    <ion-card-header>
+      <ion-card-subtitle>Oh, snap!</ion-card-subtitle>
+      <ion-card-title>An Error occured</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>Check your Homerserver Settings. Details:</h2>
+      {{errormessage}}
+    </ion-card-content>
+  </ion-card>
 
-    </ion-item>
+  <ion-list *ngIf="!error">
+    <ion-card *ngFor="let item of asset">
+      <ion-item>
+        <ion-label>{{item.name}}</ion-label>
+        <div class="item-note" slot="end">
+          <ion-toggle [checked]="item.status" (click)="updateStatus(item.id, this.checked)" name="item.name"></ion-toggle>
+        </div>
+      </ion-item>
+      <ion-card-content>
+        <div slot="start">ID: {{item.id}}</div>
+        <div slot="end">GPIO: {{item.gpio}}</div>
+      </ion-card-content>
+    </ion-card>
   </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
+
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

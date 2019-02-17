@@ -39,13 +39,15 @@ export class SettingsPage implements OnInit {
         this.status = this.httpClient.get(this.requesturl);
         this.status.subscribe(data => {
             console.log('my data: ', data);
-            this.presentConnection(data.points);
+            this.presentConnection('Connected to your Homeserver.');
+        }, error => {
+            this.presentConnection('Could not connect...');
         });
     }
 
     async presentConnection(message) {
         const toast = await this.toastController.create({
-            message: 'Your Points: ' + message,
+            message: message,
             duration: 1500
         });
         toast.present();

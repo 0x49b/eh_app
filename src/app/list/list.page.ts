@@ -9,15 +9,12 @@ import {HttpClient} from '@angular/common/http';
 export class ListPage implements OnInit {
     private selectedItem: any;
     private assets: any;
-
     asset: any;
-
-
+    error: boolean;
+    errormessage: string;
     public items: Array<{ title: string; note: string; icon: string }> = [];
 
     constructor(public httpClient: HttpClient) {
-
-
     }
 
     ngOnInit() {
@@ -25,13 +22,17 @@ export class ListPage implements OnInit {
         this.assets = this.httpClient.get(url);
         this.assets.subscribe(data => {
             console.log('asset data: ', data);
+            this.error = false;
             this.asset = data;
+            localStorage.setItem('assets', JSON.stringify(data));
+        }, error => {
+            console.log('An error happend: ' + error.message);
+            this.error = true;
+            this.errormessage = error.message;
         });
-
     }
 
-    // add back when alpha.4 is out
-    // navigate(item) {
-    //   this.router.navigate(['/list', JSON.stringify(item)]);
-    // }
+    public updateStatus(id, status) {
+        console.log('send new status  ' + status + ' for asset ' + id);
+    }
 }
